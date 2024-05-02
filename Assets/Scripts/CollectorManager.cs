@@ -45,7 +45,7 @@ public class CollectorManager : MonoBehaviour
 
     private IEnumerator SpawnCollectorRoutine()
     {
-        for(int i = 0; i <_collectorObjectPool.PoolCount; i++) 
+        while(GameManager.Instance.IsPlaying)
         {
             GameObject collector = _collectorObjectPool.GetObjectFromPool();
 

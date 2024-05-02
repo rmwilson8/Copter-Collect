@@ -10,4 +10,12 @@ public class MoveRight : MonoBehaviour
     {
         transform.Translate(Vector3.right * _moveSpeed * Time.deltaTime);
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.CompareTag("Barrier"))
+        {
+            gameObject.SetActive(false); // returns object to pool
+        }
+    }
 }
