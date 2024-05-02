@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float _sceneTransitionTime = 3f;
 
     private PlayerMover _playerMover;
-    private Collector _collector;
+    private CollectorManager _collectorManager;
 
     private void Awake()
     {
@@ -29,14 +29,14 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         _playerMover = GameObject.FindFirstObjectByType<PlayerMover>();
-        _collector = GameObject.FindFirstObjectByType<Collector>();
-        _collector.OnLevelCompleted += HandleOnLevelCompleted;
+        _collectorManager = GameObject.FindFirstObjectByType<CollectorManager>();
+        _collectorManager.OnLevelCompleted += HandleOnLevelCompleted;
         SceneManager.sceneLoaded += HandleSceneLoaded;
     }
 
     private void OnDisable()
     {
-        _collector.OnLevelCompleted -= HandleOnLevelCompleted;
+        _collectorManager.OnLevelCompleted -= HandleOnLevelCompleted;
         SceneManager.sceneLoaded -= HandleSceneLoaded;
     }
 
@@ -46,8 +46,8 @@ public class GameManager : MonoBehaviour
         {
             IsPlaying = true;
             _playerMover = GameObject.FindFirstObjectByType<PlayerMover>();
-            _collector = GameObject.FindFirstObjectByType<Collector>();
-            _collector.OnLevelCompleted += HandleOnLevelCompleted;
+            _collectorManager = GameObject.FindFirstObjectByType<CollectorManager>();
+            _collectorManager.OnLevelCompleted += HandleOnLevelCompleted;
         }
     }
 

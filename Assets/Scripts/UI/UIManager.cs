@@ -13,22 +13,22 @@ public class UIManager : MonoBehaviour
 
     private PlayerStats _playerStats;
     private PlayerMover _playerMover;
-    private Collector _collector;
+    private CollectorManager _collectorManager;
 
 
     private void OnEnable()
     {
         _playerStats = GameObject.FindFirstObjectByType<PlayerStats>();
         _playerMover = GameObject.FindFirstObjectByType<PlayerMover>();
-        _collector = GameObject.FindFirstObjectByType<Collector>();
-        _collector.OnTrashCollected += Collector_OnTrashCollected;
-        _collector.OnLevelCompleted += Collector_OnLevelCompleted;
+        _collectorManager = GameObject.FindFirstObjectByType<CollectorManager>();
+        Collector.OnAnyTrashCollected += Collector_OnTrashCollected;
+        _collectorManager.OnLevelCompleted += CollectorManager_OnLevelCompleted;
     }
 
     private void OnDisable()
     {
-        _collector.OnTrashCollected -= Collector_OnTrashCollected;
-        _collector.OnLevelCompleted -= Collector_OnLevelCompleted;
+        Collector.OnAnyTrashCollected -= Collector_OnTrashCollected;
+        _collectorManager.OnLevelCompleted -= CollectorManager_OnLevelCompleted;
     }
 
     void Start()
@@ -69,14 +69,14 @@ public class UIManager : MonoBehaviour
 
     private void UpdateCollectedTrashText()
     {
-        _collectedTrashText.text = $"{_collector.Count} / {_collector.RequiredCount}";
+        _collectedTrashText.text = $"{_collectorManager.Count} / {_collectorManager.RequiredCount}";
     }
 
     private void Collector_OnTrashCollected(object sender, EventArgs e)
     {
         UpdateCollectedTrashText();
     }
-    private void Collector_OnLevelCompleted(object sender, EventArgs e)
+    private void CollectorManager_OnLevelCompleted(object sender, EventArgs e)
     {
         _collectedTrashText.enabled = false;
         _collectedTrashImage.enabled = true;

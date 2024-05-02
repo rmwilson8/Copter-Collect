@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
+    [field: SerializeField] public int PoolCount { get; private set; }
     [SerializeField] GameObject _objectToPool;
-    [SerializeField] int _poolCount;
 
     private List<GameObject> _objectPool = new List<GameObject>();
 
@@ -16,7 +16,7 @@ public class ObjectPool : MonoBehaviour
 
     private void CreateObjectPool()
     {
-        for(int i = 0; i < _poolCount; i++) 
+        for(int i = 0; i < PoolCount; i++) 
         {
             GameObject poolObject = Instantiate(_objectToPool, transform.position, Quaternion.identity, transform);
             poolObject.SetActive(false);
