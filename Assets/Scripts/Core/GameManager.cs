@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
 
     private void HandleSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
-        if(!(arg0.buildIndex % 2 ==0)) // if the current scene does NOT have an odd build index 
+        if(!(arg0.buildIndex % 2 ==0 || SceneManager.GetActiveScene().buildIndex != SceneManager.sceneCountInBuildSettings - 1)) // if the current scene does NOT have an odd build index nor is the final scene aka the end game scene
         {
             IsPlaying = true;
             _playerMover = GameObject.FindFirstObjectByType<PlayerMover>();

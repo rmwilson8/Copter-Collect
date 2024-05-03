@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerCollector : MonoBehaviour
 {
-    public event EventHandler<float> OnFuelPickedUp;
+    public event EventHandler<float> OnFuelCollected;
+    public event EventHandler<bool> OnCollectedEvent;
     public bool IsCarrying { get; private set; }
 
     [Tooltip("Pickup Variables")]
@@ -53,13 +54,14 @@ public class PlayerCollector : MonoBehaviour
                         PickedUpTransform = hit.transform;
                         IsCarrying = true;
                         pickup.Pickup(_pickupSlot);
+                        OnCollectedEvent?.Invoke(this, true); // used by AudioManager script
                     }
 
                     else if (pickup is Fuel)
                     {
                         Debug.Log("Picked Up Fuel");
                         pickup.ReturnToPool();
-                        OnFuelPickedUp?.Invoke(this, 10f); // REPLACE MAGIC NUMBER!!!!!!
+                        OnFuelCollected?.Invoke(this, 10f); // REPLACE MAGIC NUMBER!!!!!!
                     }
                 }
             }
@@ -73,6 +75,7 @@ public class PlayerCollector : MonoBehaviour
             IsCarrying = false;
             PickedUpTransform.GetComponent<IPickup>().Release();
             PickedUpTransform = null;
+            OnCollectedEvent?.Invoke(this, false); // used by AudioManager script
         }
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMover : MonoBehaviour
 {
+    public event EventHandler<bool> OnMoveEvent;
     public bool IsMoving { get; private set; }
     public float CurrentSpeed { get; private set; }
     public float CurrentFuel {  get; private set; }
@@ -28,7 +29,7 @@ public class PlayerMover : MonoBehaviour
     {
         _playerStats = GameObject.FindFirstObjectByType<PlayerStats>();
         _playerCollector = GetComponent<PlayerCollector>();
-        _playerCollector.OnFuelPickedUp += PlayerCollecter_OnFuelPickedUp;
+        _playerCollector.OnFuelCollected += PlayerCollecter_OnFuelPickedUp;
     }
 
     private void Start()
@@ -94,8 +95,14 @@ public class PlayerMover : MonoBehaviour
 
     private void CheckIsMoving()
     {
+        bool isMoving = IsMoving;
         float distanceToTarget = Vector3.Distance(transform.position, _targetPosition);
         IsMoving = distanceToTarget > _distanceToTargetThreshold;
+
+        if(IsMoving != isMoving)//IsMoving has changed
+        {
+            OnMoveEvent?.Invoke(this, IsMoving);
+        }
     }
 
     private void CalculateFuel()
