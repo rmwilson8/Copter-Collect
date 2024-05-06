@@ -40,7 +40,6 @@ public class GameManager : MonoBehaviour
         if(_collectorManager != null)
         {
             _collectorManager.OnLevelCompleted -= HandleOnLevelCompleted;
-
         }
 
         SceneManager.sceneLoaded -= HandleSceneLoaded;
