@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
         _playerMover = GameObject.FindFirstObjectByType<PlayerMover>();
         _collectorManager = GameObject.FindFirstObjectByType<CollectorManager>();
         _collectorManager.OnLevelCompleted += HandleOnLevelCompleted;
+        _playerMover.OnFuelOutEvent += HandleLevelLost;
         SceneManager.sceneLoaded += HandleSceneLoaded;
     }
 
@@ -58,6 +59,11 @@ public class GameManager : MonoBehaviour
                 _collectorManager.OnLevelCompleted += HandleOnLevelCompleted;
             }
         }
+    }
+
+    private void HandleLevelLost(object sender, EventArgs e)
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void HandleOnLevelCompleted(object sender, EventArgs e)

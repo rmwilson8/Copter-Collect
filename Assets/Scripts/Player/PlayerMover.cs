@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerMover : MonoBehaviour
 {
     public event EventHandler<bool> OnMoveEvent;
+    public event EventHandler OnFuelOutEvent;
     public bool IsMoving { get; private set; }
     public float CurrentSpeed { get; private set; }
     public float CurrentFuel {  get; private set; }
@@ -114,7 +115,7 @@ public class PlayerMover : MonoBehaviour
 
         if (CurrentFuel <= 0) 
         {
-            Destroy(gameObject);
+            OnFuelOutEvent?.Invoke(this, EventArgs.Empty);
         }
     }
 

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
+    public GameObject ObjectToPool;
     [field: SerializeField] public int PoolCount { get; private set; }
-    [SerializeField] GameObject _objectToPool;
 
     private List<GameObject> _objectPool = new List<GameObject>();
 
@@ -18,7 +18,7 @@ public class ObjectPool : MonoBehaviour
     {
         for(int i = 0; i < PoolCount; i++) 
         {
-            GameObject poolObject = Instantiate(_objectToPool, transform.position, Quaternion.identity, transform);
+            GameObject poolObject = Instantiate(ObjectToPool, transform.position, Quaternion.identity, transform);
             poolObject.SetActive(false);
             _objectPool.Add(poolObject);
         }
@@ -31,7 +31,7 @@ public class ObjectPool : MonoBehaviour
             if (!poolObject.activeInHierarchy)
             {
                 poolObject.SetActive(true);
-                poolObject.transform.rotation = _objectToPool.transform.rotation; // added so fuel cannister are rotated properly
+                poolObject.transform.rotation = ObjectToPool.transform.rotation; // added so fuel cannister are rotated properly
                 return poolObject;
             }
         }

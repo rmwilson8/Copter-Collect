@@ -10,7 +10,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private float _fuelMaxSpawnInterval = 10f;
     [SerializeField] private ObjectPool _trashObjectPool;
     [SerializeField] private ObjectPool _fuelObjectPool;
-    [SerializeField] private Transform[] _spawnPositions;
+    [SerializeField] private Transform[] _trashSpawnPositions;
+    [SerializeField] private Transform[] _fuelSpawnPositions;
 
     bool _isPlaying;
 
@@ -29,8 +30,8 @@ public class SpawnManager : MonoBehaviour
 
             if (spawnedObject != null) 
             {
-                int randomIndex = Random.Range(0, _spawnPositions.Length);
-                Vector3 spawnPosition = _spawnPositions[randomIndex].position;
+                int randomIndex = Random.Range(0, _trashSpawnPositions.Length);
+                Vector3 spawnPosition = _trashSpawnPositions[randomIndex].position;
                 spawnedObject.transform.position = spawnPosition;
             }
         }
@@ -45,9 +46,10 @@ public class SpawnManager : MonoBehaviour
 
             if ( spawnedObject != null) 
             {
-                int randomIndex = Random.Range(0, _spawnPositions.Length);
-                Vector3 spawnPosition = _spawnPositions[randomIndex].position;
+                int randomIndex = Random.Range(0, _trashSpawnPositions.Length);
+                Vector3 spawnPosition = _fuelSpawnPositions[randomIndex].position;
                 spawnedObject.transform.position = spawnPosition;
+                spawnedObject.transform.rotation = _fuelObjectPool.ObjectToPool.transform.rotation;
             }
         }
     }
