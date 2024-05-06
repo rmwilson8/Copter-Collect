@@ -9,7 +9,7 @@ public class PlayerMover : MonoBehaviour
     public bool IsMoving { get; private set; }
     public float CurrentSpeed { get; private set; }
     public float CurrentFuel {  get; private set; }
-    public float FuelBurnRate { get; private set; }
+    public float CurrentFuelBurnRate { get; private set; }
 
     [Tooltip("Movement & Rotation Variables")]
     [SerializeField] private Vector3 _startingPosition;
@@ -36,7 +36,7 @@ public class PlayerMover : MonoBehaviour
     {
         CurrentSpeed = _playerStats.BaseSpeed;
         CurrentFuel = _playerStats.FuelCapacity;
-        FuelBurnRate = _playerStats.FuelBurnRate;
+        CurrentFuelBurnRate = _playerStats.FuelBurnRate;
     }
 
     // Update is called once per frame
@@ -107,10 +107,10 @@ public class PlayerMover : MonoBehaviour
 
     private void CalculateFuel()
     {
-        if(_playerCollector.IsCarrying) { FuelBurnRate = _playerStats.CarryFuelBurnRate; }
-        else { FuelBurnRate = _playerStats.FuelBurnRate; }
+        if(_playerCollector.IsCarrying) { CurrentFuelBurnRate = _playerStats.CarryFuelBurnRate; }
+        else { CurrentFuelBurnRate = _playerStats.FuelBurnRate; }
 
-        CurrentFuel -= FuelBurnRate * Time.deltaTime;
+        CurrentFuel -= CurrentFuelBurnRate * Time.deltaTime;
 
         if (CurrentFuel <= 0) 
         {

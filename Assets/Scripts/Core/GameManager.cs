@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
         if(Instance != null)
         {
             Debug.Log("More than one Game Manager in scene.");
-            Destroy(Instance);
+            Destroy(Instance.gameObject);
         }
 
         DontDestroyOnLoad(this.gameObject);
@@ -36,18 +36,27 @@ public class GameManager : MonoBehaviour
 
     private void OnDisable()
     {
-        _collectorManager.OnLevelCompleted -= HandleOnLevelCompleted;
+        if(_collectorManager != null)
+        {
+            _collectorManager.OnLevelCompleted -= HandleOnLevelCompleted;
+
+        }
+
         SceneManager.sceneLoaded -= HandleSceneLoaded;
     }
 
     private void HandleSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
-        if(!(arg0.buildIndex % 2 ==0 || SceneManager.GetActiveScene().buildIndex != SceneManager.sceneCountInBuildSettings - 1)) // if the current scene does NOT have an odd build index nor is the final scene aka the end game scene
+        if(!(arg0.buildIndex % 2 ==0)) // if the current scene has an odd build index nor is the final scene aka the end game scene
         {
             IsPlaying = true;
             _playerMover = GameObject.FindFirstObjectByType<PlayerMover>();
             _collectorManager = GameObject.FindFirstObjectByType<CollectorManager>();
-            _collectorManager.OnLevelCompleted += HandleOnLevelCompleted;
+
+            if(_collectorManager != null) // end menu scene does not have a collector manager
+            {
+                _collectorManager.OnLevelCompleted += HandleOnLevelCompleted;
+            }
         }
     }
 

@@ -1015,11 +1015,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 691dafcae90666b40912308f2d4cec84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <BaseSpeed>k__BackingField: 30
-  <CarrySpeed>k__BackingField: 15
+  <BaseSpeed>k__BackingField: 50
+  <CarrySpeed>k__BackingField: 30
   <FuelCapacity>k__BackingField: 100
-  <FuelBurnRate>k__BackingField: 1
-  <CarryFuelBurnRate>k__BackingField: 2
+  <FuelBurnRate>k__BackingField: 0.1
+  <CarryFuelBurnRate>k__BackingField: 0.2
   _baseSpeedUpgradeFactor: 1.2
   _carrySpeedUpgradeFactor: 1.2
   _fuelCapacityUpgradeFactor: 1.2
