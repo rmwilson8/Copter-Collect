@@ -11,15 +11,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _collectedTrashText;
     [SerializeField] private Image _collectedTrashImage;
 
-    private PlayerStats _playerStats;
-    private PlayerMover _playerMover;
+    private PlayerStateMachine _playerStateMachine;
     private CollectorManager _collectorManager;
 
 
     private void OnEnable()
     {
-        _playerStats = GameObject.FindFirstObjectByType<PlayerStats>();
-        _playerMover = GameObject.FindFirstObjectByType<PlayerMover>();
+        _playerStateMachine = GameObject.FindFirstObjectByType<PlayerStateMachine>();
         _collectorManager = GameObject.FindFirstObjectByType<CollectorManager>();
         Collector.OnAnyTrashCollected += Collector_OnTrashCollected;
         _collectorManager.OnLevelCompleted += CollectorManager_OnLevelCompleted;
@@ -45,7 +43,7 @@ public class UIManager : MonoBehaviour
 
     private void UpdateFuelBar()
     {
-        float fillAmount = (_playerMover.CurrentFuel / _playerStats.FuelCapacity);
+        float fillAmount = (_playerStateMachine.CurrentFuel / _playerStateMachine.PlayerStats.FuelCapacity);
         _fuelBar.value = fillAmount;
 
         Image fillImage = _fuelBar.fillRect.GetComponent<Image>();

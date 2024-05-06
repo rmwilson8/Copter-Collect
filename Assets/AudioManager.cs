@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -11,65 +12,30 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip _playerCarryingClip;
 
     private AudioSource _audioSource;
-    private PlayerMover _playerMover;
-    private PlayerCollector _playerCollector;
-    
-    private void OnEnable()
+    private PlayerStateMachine _playerStateMachine;
+
+    private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
-        _playerMover = GameObject.FindFirstObjectByType<PlayerMover>();
-        _playerCollector = GameObject.FindFirstObjectByType<PlayerCollector>();
-
-        _playerMover.OnMoveEvent += PlayerMover_OnMoveEvent;
-        _playerCollector.OnCollectedEvent += PlayerCollector_OnCollectedEvent;
+        _playerStateMachine = GameObject.FindFirstObjectByType<PlayerStateMachine>();
+        _playerStateMachine.OnSwitchStateEvent += PlayerStateMachine_OnSwitchStateEvent;
     }
 
-    private void OnDisable()
+    private void PlayerStateMachine_OnSwitchStateEvent(object sender, EventArgs e)
     {
-        _playerMover.OnMoveEvent -= PlayerMover_OnMoveEvent;
-        _playerCollector.OnCollectedEvent -= PlayerCollector_OnCollectedEvent;
-    }
-
-    private void PlayerMover_OnMoveEvent(object sender, bool isMoving)
-    {
-        if(!_playerCollector.IsCarrying) // do not want to change if playing carrying clip
+        switch(_playerStateMachine.CurrentState)
         {
-            if(isMoving)
-            {
-                _audioSource.clip = _playerMovingClip;
-            }
-
-            else
-            {
+            case PlayerIdleState:
                 _audioSource.clip = _playerIdleClip;
-            }
-
-            _audioSource.Play();
-        }
-
-    }
-
-    private void PlayerCollector_OnCollectedEvent(object sender, bool collected)
-    {
-        if(collected)
-        {
-            _audioSource.clip = _playerCarryingClip;
-        }
-
-        else
-        {
-            if(_playerMover.IsMoving)
-            {
+                break;
+            case PlayerMovingState:
                 _audioSource.clip = _playerMovingClip;
-            }
-
-            else
-            {
-                _audioSource.clip = _playerIdleClip;
-            }
+                break;
+            case PlayerCarryingState:
+                _audioSource.clip = _playerCarryingClip;
+                break;
         }
 
         _audioSource.Play();
     }
-
 }

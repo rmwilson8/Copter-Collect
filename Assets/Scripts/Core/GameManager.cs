@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private float _sceneTransitionTime = 3f;
 
-    private PlayerMover _playerMover;
+    private PlayerStateMachine _playerStateMachine;
     private CollectorManager _collectorManager;
 
     private void Awake()
@@ -28,10 +28,10 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        _playerMover = GameObject.FindFirstObjectByType<PlayerMover>();
+        _playerStateMachine = GameObject.FindFirstObjectByType<PlayerStateMachine>();
         _collectorManager = GameObject.FindFirstObjectByType<CollectorManager>();
         _collectorManager.OnLevelCompleted += HandleOnLevelCompleted;
-        _playerMover.OnFuelOutEvent += HandleLevelLost;
+        _playerStateMachine.OnFuelEmptyEvent += HandleFuelOut;
         SceneManager.sceneLoaded += HandleSceneLoaded;
     }
 
@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
         if(!(arg0.buildIndex % 2 ==0)) // if the current scene has an odd build index nor is the final scene aka the end game scene
         {
             IsPlaying = true;
-            _playerMover = GameObject.FindFirstObjectByType<PlayerMover>();
+            _playerStateMachine = GameObject.FindFirstObjectByType<PlayerStateMachine>();
             _collectorManager = GameObject.FindFirstObjectByType<CollectorManager>();
 
             if(_collectorManager != null) // end menu scene does not have a collector manager
@@ -60,16 +60,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void HandleLevelLost(object sender, EventArgs e)
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
     private void HandleOnLevelCompleted(object sender, EventArgs e)
     {
         IsPlaying = false;
         StartCoroutine(TransitionToNextSceneRoutine());
         Debug.Log("Moving top next scene");
+    }
+
+    private void HandleFuelOut(object sender, EventArgs e)
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private IEnumerator TransitionToNextSceneRoutine()

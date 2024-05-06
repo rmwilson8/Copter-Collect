@@ -49,9 +49,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b897c349840bb924b9e63caac7a2eda9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _carryingSpeed: 750
-  _movingSpeed: 500
-  _idleSpeed: 200
+  _carryingRotationSpeed: 750
+  _movingRotationSpeed: 500
+  _idleRotationSpeed: 200
   _rotorTransform: {fileID: 5043578984548866469}
   _particleSystem: {fileID: 6639730214122566287}
 --- !u!1 &1735022686447726598
@@ -147,8 +147,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1468956223737927472}
   - component: {fileID: 6964803756848118781}
-  - component: {fileID: 848486088212179218}
   - component: {fileID: 6009899241034651910}
+  - component: {fileID: 8268981243697721815}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -184,23 +184,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3727fbe07b7e23a4fa968b872965e1bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &848486088212179218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2285883642774582323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e9446b6387533d4bb38571ea18afba4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _startingPosition: {x: 0, y: 9.25, z: -8.5}
-  _rotationSpeed: 50
-  _distanceToTargetThreshold: 0.15
-  _xMaxPosition: 85
-  _zMaxPosition: 45
 --- !u!114 &6009899241034651910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,6 +197,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pickupSlot: {fileID: 629876597884368197}
+--- !u!114 &8268981243697721815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2285883642774582323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e10ad56b46a5e54bb496ed58a3bd392, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CurrentSpeed>k__BackingField: 0
+  <CurrentFuel>k__BackingField: 0
+  <CurrentFuelBurnRate>k__BackingField: 0
+  <RotationSpeed>k__BackingField: 50
+  <DistanceToTargetThreshold>k__BackingField: 0.15
+  <XMaxPosition>k__BackingField: 85
+  <ZMaxPosition>k__BackingField: 45
+  <StartingPosition>k__BackingField: {x: 0, y: 9.25, z: -8.5}
+  <TargetPosition>k__BackingField: {x: 0, y: 0, z: 0}
+  MoveDirection: {x: 0, y: 0, z: 0}
 --- !u!1 &3065662535302617714
 GameObject:
   m_ObjectHideFlags: 0

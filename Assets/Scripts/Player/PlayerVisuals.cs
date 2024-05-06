@@ -1,81 +1,77 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerVisuals : MonoBehaviour
 {
-    [SerializeField] private float _carryingSpeed = 750f;
-    [SerializeField] private float _movingSpeed = 500f;
-    [SerializeField] private float _idleSpeed = 200f;
+    [SerializeField] private float _carryingRotationSpeed = 750f;
+    [SerializeField] private float _movingRotationSpeed = 500f;
+    [SerializeField] private float _idleRotationSpeed = 200f;
     [SerializeField] private Transform _rotorTransform;
     [SerializeField] private ParticleSystem _particleSystem;
 
-    PlayerMover _playerMover;
-    PlayerCollector _playerCollector;
+    private PlayerStateMachine _playerStateMachine;
+    private PlayerCollector _playerCollector;
+
+    private float _rotationSpeed;
     // Start is called before the first frame update
     void Start()
     {
-        _playerMover = GetComponentInParent<PlayerMover>();
+        _playerStateMachine = GetComponentInParent<PlayerStateMachine>();
         _playerCollector = GetComponentInParent<PlayerCollector>();
+
+        _rotationSpeed = _playerStateMachine.RotationSpeed;
+        _playerStateMachine.OnSwitchStateEvent += PlayerStateMachine_OnSwitchStateEvent;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        /*        if (_playerMover.IsMoving && _playerCollector.IsCarrying && _particleSystem.isPlaying)
-                {
+                _rotorTransform.Rotate(Vector3.up, _rotationSpeed * Time.deltaTime);
 
-                    _rotorTransform.Rotate(Vector3.up, _carryingSpeed * Time.deltaTime);
-                }
+    }
 
-                else if (_playerMover.IsMoving && _playerCollector.IsCarrying)
-                {
-                    _particleSystem.Play();
-                    _rotorTransform.Rotate(Vector3.up, _carryingSpeed * Time.deltaTime);
-                }
 
-                else if (_playerMover.IsMoving && _particleSystem.isPlaying)
-                {
-                    _particleSystem.Stop();
-                    _rotorTransform.Rotate(Vector3.up, _movingSpeed * Time.deltaTime);
-                }
-
-                else if(_playerMover.IsMoving)
-                {
-                    _rotorTransform.Rotate(Vector3.up, _movingSpeed * Time.deltaTime);
-                }
-
-                else
-                {
-                    _rotorTransform.Rotate(Vector3.up, _idleSpeed * Time.deltaTime);
-                }*/
-
-        if (_playerMover.IsMoving)
+    private void PlayerStateMachine_OnSwitchStateEvent(object sender, EventArgs e)
+    {
+        switch(_playerStateMachine.CurrentState)
         {
-            if (_playerCollector.IsCarrying)
-            {
-                _rotorTransform.Rotate(Vector3.up, _carryingSpeed * Time.deltaTime);
-
-                if (!_particleSystem.isPlaying)
-                {
-                    _particleSystem.Play();
-                }
-            }
-            else
-            {
-                _rotorTransform.Rotate(Vector3.up, _movingSpeed * Time.deltaTime);
+            case PlayerIdleState:
+                _rotationSpeed = _idleRotationSpeed;
 
                 if (_particleSystem.isPlaying)
                 {
                     _particleSystem.Stop();
                 }
-            }
-        }
-        else
-        {
-            _rotorTransform.Rotate(Vector3.up, _idleSpeed * Time.deltaTime);
-        }
+                break;
 
-        //Debug.Log(_particleSystem.isPlaying);
+            case PlayerMovingState:
+                _rotationSpeed = _movingRotationSpeed;
+
+                if (_particleSystem.isPlaying)
+                {
+                    _particleSystem.Stop();
+                }
+                break;
+
+            case PlayerCarryingState:
+                _rotationSpeed = _carryingRotationSpeed;
+
+                if (!_particleSystem.isPlaying)
+                {
+                    _particleSystem.Play();
+                }
+                break;
+
+            default:
+                _rotationSpeed = _idleRotationSpeed;
+
+                if (_particleSystem.isPlaying)
+                {
+                    _particleSystem.Stop();
+                }
+                break;
+        }
     }
 }
