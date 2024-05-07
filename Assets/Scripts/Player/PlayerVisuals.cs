@@ -55,7 +55,7 @@ public class PlayerVisuals : MonoBehaviour
                 }
                 break;
 
-            case PlayerCarryingState:
+            case PlayerCarryingMovingState:
                 _rotationSpeed = _carryingRotationSpeed;
 
                 if (!_particleSystem.isPlaying)

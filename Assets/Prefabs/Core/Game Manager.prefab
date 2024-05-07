@@ -62,7 +62,10 @@ MonoBehaviour:
   <CarrySpeed>k__BackingField: 10
   <FuelCapacity>k__BackingField: 200
   <FuelBurnRate>k__BackingField: 2
-  <CarryFuelBurnRate>k__BackingField: 5
+  <CarryFuelBurnFactor>k__BackingField: 2
+  <CarryIdleFuelBurnFactor>k__BackingField: 1.35
+  <BoostFuelBurnFactor>k__BackingField: 2
+  <BoostSpeedFactor>k__BackingField: 2
   _baseSpeedUpgradeFactor: 1.2
   _carrySpeedUpgradeFactor: 1.2
   _fuelCapacityUpgradeFactor: 1.2

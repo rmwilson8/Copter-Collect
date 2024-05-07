@@ -1,8 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -10,6 +6,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip _playerIdleClip;
     [SerializeField] private AudioClip _playerMovingClip;
     [SerializeField] private AudioClip _playerCarryingClip;
+    [SerializeField] private AudioClip _playerCarryingIdleClip;
 
     private AudioSource _audioSource;
     private PlayerStateMachine _playerStateMachine;
@@ -31,9 +28,13 @@ public class AudioManager : MonoBehaviour
             case PlayerMovingState:
                 _audioSource.clip = _playerMovingClip;
                 break;
-            case PlayerCarryingState:
+            case PlayerCarryingMovingState:
                 _audioSource.clip = _playerCarryingClip;
                 break;
+            case PlayerCarryingIdleState:
+                _audioSource.clip = _playerCarryingIdleClip;
+                break;
+            
         }
 
         _audioSource.Play();

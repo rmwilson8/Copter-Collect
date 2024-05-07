@@ -44,6 +44,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Boost"",
+                    ""type"": ""Button"",
+                    ""id"": ""cd9aca3a-f48d-4e21-9fa9-13ebd8efb49f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -68,6 +77,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8a9d3c1c-2264-417d-9ac1-6bf2074de2e6"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Boost"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -78,6 +98,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Pickup = m_Player.FindAction("Pickup", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
+        m_Player_Boost = m_Player.FindAction("Boost", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -141,12 +162,14 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Pickup;
     private readonly InputAction m_Player_Move;
+    private readonly InputAction m_Player_Boost;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
         public PlayerActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Pickup => m_Wrapper.m_Player_Pickup;
         public InputAction @Move => m_Wrapper.m_Player_Move;
+        public InputAction @Boost => m_Wrapper.m_Player_Boost;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -162,6 +185,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
+            @Boost.started += instance.OnBoost;
+            @Boost.performed += instance.OnBoost;
+            @Boost.canceled += instance.OnBoost;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -172,6 +198,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
+            @Boost.started -= instance.OnBoost;
+            @Boost.performed -= instance.OnBoost;
+            @Boost.canceled -= instance.OnBoost;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -193,5 +222,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     {
         void OnPickup(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
+        void OnBoost(InputAction.CallbackContext context);
     }
 }
