@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public bool IsPlaying { get; private set; } = true;
 
+    [SerializeField] private bool _isEndlessLevel;
     [SerializeField] private float _sceneTransitionTime = 3f;
 
     private PlayerStateMachine _playerStateMachine;
@@ -53,6 +54,11 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded -= HandleSceneLoaded;
     }
 
+    public bool GetIsEndlessLevel()
+    {
+        return _isEndlessLevel;
+    }
+
     private void HandleSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
         if(!(arg0.buildIndex % 2 ==0)) // if the current scene has an odd build index nor is the final scene aka the end game scene
@@ -83,7 +89,15 @@ public class GameManager : MonoBehaviour
 
     private void HandleFuelOut(object sender, EventArgs e)
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if(!_isEndlessLevel)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        else
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 
     private IEnumerator TransitionToNextSceneRoutine()

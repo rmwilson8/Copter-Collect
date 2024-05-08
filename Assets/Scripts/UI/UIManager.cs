@@ -72,12 +72,20 @@ public class UIManager : MonoBehaviour
 
     private void UpdateCollectedTrashText()
     {
-        _collectedTrashText.text = $"{_collectorManager.Count} / {_collectorManager.RequiredCount}";
+        if(!GameManager.Instance.GetIsEndlessLevel())
+        {
+            _collectedTrashText.text = $"{_collectorManager.Count} / {_collectorManager.RequiredCount}";
+        }
+
+        else
+        {
+            _collectedTrashText.text = $"{_collectorManager.Count}";
+        }
     }
 
     private void Collector_OnTrashCollected(object sender, EventArgs e)
     {
-        UpdateCollectedTrashText();
+        Invoke("UpdateCollectedTrashText", .25f);
     }
     private void CollectorManager_OnLevelCompleted(object sender, EventArgs e)
     {
