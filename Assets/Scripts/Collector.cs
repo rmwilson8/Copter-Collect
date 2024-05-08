@@ -23,14 +23,6 @@ public class Collector : MonoBehaviour
 
     private void InstantiateTrash(Vector3 position)
     {
-        GameObject trashObject = Instantiate(_trashPrefab, position, _trashPrefab.transform.rotation, transform);
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if(other.CompareTag("Barrier"))
-        {
-            gameObject.transform.position += _positionOffset;
-        }
+        GameObject trashObject = Instantiate(_trashPrefab, position + Vector3.up * .01f, _trashPrefab.transform.rotation, transform);
     }
 }

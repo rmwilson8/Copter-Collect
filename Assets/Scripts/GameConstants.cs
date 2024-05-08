@@ -6,9 +6,9 @@ using UnityEngine;
 public class GameConstants
 {
     public const string START_MENU_FACT = "Oceanic plastics facts found at the Maritime Aquarium at Norwalk website. Learn more at www.maritimeaquarium.org";
-    public const string UPGRADE_FACT_ONE = "U.S. National Oceanic and Atmospheric Association (NOAA) estimates that plastic in our oceans kills at least 1 million sea birds and 100,000 mammals each year.";
-    public const string UPGRADE_FACT_TWO = "By the year 2050, by weight, there may be more plastic in the ocean than fish.";
-    public const string UPGRADE_FACT_THREE = "Americans used aboplastic water bottles underneath a bridge near the water.ut 50 billion plastic bottles of water last year.";
-    public const string UPGRADE_FACT_FOUR = "Plastics in the environment never fully decompose. Instead, they break down into smaller and smaller pieces – eventually into microplastics – that remain in the environment.";
-    public const string END_GAME_FACT = "You have the power to save the ocean!";
+    public const string UPGRADE_FACT_ONE = "The U.S. National Oceanic and Atmospheric Association (NOAA) estimates that ocean plastics kill over 1 million birds and 100,00 mammals annually.";
+    public const string UPGRADE_FACT_TWO = "It is estimated that by year 2050, ocean plastic will outweigh the fish population in our oceans.";
+    public const string UPGRADE_FACT_THREE = "Around 50 billion plastic warter bottles are used annually in the US.";
+    public const string UPGRADE_FACT_FOUR = "Littered plastics do not completely decompose. While they do break down, much of it remains as microplastics that remain in the environment.";
+    public const string END_GAME_FACT = "You have the power to positively impact our oceans!";
 }

@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     private PlayerStateMachine _playerStateMachine;
     private CollectorManager _collectorManager;
+    private InputReader _inputReader;
 
     private void Awake()
     {
@@ -30,8 +31,10 @@ public class GameManager : MonoBehaviour
     {
         _playerStateMachine = GameObject.FindFirstObjectByType<PlayerStateMachine>();
         _collectorManager = GameObject.FindFirstObjectByType<CollectorManager>();
+        _inputReader = GameObject.FindFirstObjectByType<InputReader>();
         _collectorManager.OnLevelCompleted += HandleOnLevelCompleted;
         _playerStateMachine.OnFuelEmptyEvent += HandleFuelOut;
+        _inputReader.OnToggleControlsEvent += InputReader_OnToggleControlsEvent;
         SceneManager.sceneLoaded += HandleSceneLoaded;
     }
 
@@ -40,6 +43,11 @@ public class GameManager : MonoBehaviour
         if(_collectorManager != null)
         {
             _collectorManager.OnLevelCompleted -= HandleOnLevelCompleted;
+        }
+
+        if(_inputReader != null)
+        {
+            _inputReader.OnToggleControlsEvent -= InputReader_OnToggleControlsEvent;
         }
 
         SceneManager.sceneLoaded -= HandleSceneLoaded;
@@ -52,10 +60,16 @@ public class GameManager : MonoBehaviour
             IsPlaying = true;
             _playerStateMachine = GameObject.FindFirstObjectByType<PlayerStateMachine>();
             _collectorManager = GameObject.FindFirstObjectByType<CollectorManager>();
+            _inputReader = GameObject.FindFirstObjectByType<InputReader>();
 
             if(_collectorManager != null) // end menu scene does not have a collector manager
             {
                 _collectorManager.OnLevelCompleted += HandleOnLevelCompleted;
+            }
+
+            if(_inputReader != null) 
+            {
+                _inputReader.OnToggleControlsEvent += InputReader_OnToggleControlsEvent;
             }
         }
     }
@@ -81,5 +95,21 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene(0);
+    }
+
+
+    private void InputReader_OnToggleControlsEvent(object sender, bool checkControls)
+    {
+        if(checkControls)
+        {
+            Time.timeScale = 0f;
+            FindFirstObjectByType<AudioSource>().volume = 0f;
+        }
+
+        else
+        {
+            Time.timeScale = 1f;
+            FindFirstObjectByType<AudioSource>().volume = 1f;
+        }
     }
 }

@@ -10,13 +10,16 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Slider _fuelBar;
     [SerializeField] private TextMeshProUGUI _collectedTrashText;
     [SerializeField] private Image _collectedTrashImage;
+    [SerializeField] private GameObject _controlsMenu;
 
     private PlayerStateMachine _playerStateMachine;
     private CollectorManager _collectorManager;
-
+    private InputReader _inputReader;
 
     private void OnEnable()
     {
+        _inputReader = GameObject.FindAnyObjectByType<InputReader>();
+        _inputReader.OnToggleControlsEvent += InputReader_OnToggleControlsEvent;
         _playerStateMachine = GameObject.FindFirstObjectByType<PlayerStateMachine>();
         _collectorManager = GameObject.FindFirstObjectByType<CollectorManager>();
         Collector.OnAnyTrashCollected += Collector_OnTrashCollected;
@@ -27,11 +30,13 @@ public class UIManager : MonoBehaviour
     {
         Collector.OnAnyTrashCollected -= Collector_OnTrashCollected;
         _collectorManager.OnLevelCompleted -= CollectorManager_OnLevelCompleted;
+        _inputReader.OnToggleControlsEvent -= InputReader_OnToggleControlsEvent;
     }
 
     void Start()
     {
         _collectedTrashImage.enabled = false;
+        _controlsMenu.SetActive(false);
         UpdateCollectedTrashText();
     }
 
@@ -78,5 +83,18 @@ public class UIManager : MonoBehaviour
     {
         _collectedTrashText.enabled = false;
         _collectedTrashImage.enabled = true;
+    }
+
+    private void InputReader_OnToggleControlsEvent(object sender, bool checkControls)
+    {
+        if(checkControls)
+        {
+            _controlsMenu.SetActive(true);
+        }
+
+        else
+        {
+            _controlsMenu.SetActive(false);
+        }
     }
 }

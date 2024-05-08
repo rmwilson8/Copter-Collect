@@ -10,6 +10,22 @@ public class AudioManager : MonoBehaviour
 
     private AudioSource _audioSource;
     private PlayerStateMachine _playerStateMachine;
+    private InputReader _inputReader;
+
+    private void OnEnable()
+    {
+        _audioSource = GetComponent<AudioSource>();
+        _inputReader = GameObject.FindFirstObjectByType<InputReader>();
+        _playerStateMachine = GameObject.FindFirstObjectByType<PlayerStateMachine>();
+        _playerStateMachine.OnSwitchStateEvent += PlayerStateMachine_OnSwitchStateEvent;
+        _inputReader.OnBoostEvent += InputReader_OnBoostEvent;
+    }
+
+    private void OnDisable()
+    {
+        _playerStateMachine.OnSwitchStateEvent -= PlayerStateMachine_OnSwitchStateEvent;
+        _inputReader.OnBoostEvent -= InputReader_OnBoostEvent;
+    }
 
     private void Start()
     {
@@ -38,5 +54,18 @@ public class AudioManager : MonoBehaviour
         }
 
         _audioSource.Play();
+    }
+
+    private void InputReader_OnBoostEvent(object sender, bool isBoosting)
+    {
+        if(isBoosting)
+        {
+            _audioSource.pitch = 1.5f;
+        }
+
+        else
+        {
+            _audioSource.pitch = 1f;
+        }
     }
 }

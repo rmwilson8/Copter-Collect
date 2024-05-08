@@ -329,7 +329,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 373338147}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1335822662}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &373338147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -420,6 +432,7 @@ MonoBehaviour:
   _restartButton: {fileID: 373338146}
   _quitButton: {fileID: 714647623}
   _factText: {fileID: 667946779}
+  _restartTime: 2
 --- !u!1 &667946777
 GameObject:
   m_ObjectHideFlags: 0
@@ -901,6 +914,74 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 992679365}
   m_CullTransparentMesh: 1
+--- !u!1001 &1174761415
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 81318604773595989, guid: 4ec799abdd0b50e4da6b97bdbea05174,
+        type: 3}
+      propertyPath: m_Name
+      value: Menu Audio
+      objectReference: {fileID: 0}
+    - target: {fileID: 4817176754870428985, guid: 4ec799abdd0b50e4da6b97bdbea05174,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4817176754870428985, guid: 4ec799abdd0b50e4da6b97bdbea05174,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4817176754870428985, guid: 4ec799abdd0b50e4da6b97bdbea05174,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4817176754870428985, guid: 4ec799abdd0b50e4da6b97bdbea05174,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4817176754870428985, guid: 4ec799abdd0b50e4da6b97bdbea05174,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4817176754870428985, guid: 4ec799abdd0b50e4da6b97bdbea05174,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4817176754870428985, guid: 4ec799abdd0b50e4da6b97bdbea05174,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4817176754870428985, guid: 4ec799abdd0b50e4da6b97bdbea05174,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4817176754870428985, guid: 4ec799abdd0b50e4da6b97bdbea05174,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4817176754870428985, guid: 4ec799abdd0b50e4da6b97bdbea05174,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4ec799abdd0b50e4da6b97bdbea05174, type: 3}
 --- !u!1 &1227835861
 GameObject:
   m_ObjectHideFlags: 0
@@ -1209,6 +1290,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1330830837}
   m_CullTransparentMesh: 1
+--- !u!82 &1335822662 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 3338198119144500699, guid: 4ec799abdd0b50e4da6b97bdbea05174,
+    type: 3}
+  m_PrefabInstance: {fileID: 1174761415}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1837696484
 GameObject:
   m_ObjectHideFlags: 0
@@ -1606,3 +1693,4 @@ SceneRoots:
   - {fileID: 2021579777}
   - {fileID: 136621135}
   - {fileID: 938789595}
+  - {fileID: 1174761415}

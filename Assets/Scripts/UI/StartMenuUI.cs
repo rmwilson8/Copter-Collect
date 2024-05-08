@@ -10,6 +10,7 @@ public class StartMenuUI : MonoBehaviour
     [SerializeField] private Button _startButton;
     [SerializeField] private Button _quitButton;
     [SerializeField] private TextMeshProUGUI _factText;
+    [SerializeField] private float _startTime = 2f;
 
     private void OnEnable()
     {
@@ -30,11 +31,17 @@ public class StartMenuUI : MonoBehaviour
 
     private void StartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        StartCoroutine(StartGameRoutine());
     }
 
     private void QuitGame()
     {
         Application.Quit();
+    }
+
+    private IEnumerator StartGameRoutine()
+    {
+        yield return new WaitForSeconds(_startTime);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

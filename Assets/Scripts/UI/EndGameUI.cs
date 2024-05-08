@@ -9,6 +9,7 @@ public class EndGameUI : MonoBehaviour
     [SerializeField] private Button _restartButton;
     [SerializeField] private Button _quitButton;
     [SerializeField] private TextMeshProUGUI _factText;
+    [SerializeField] private float _restartTime = 2f;
 
     void Start()
     {
@@ -19,11 +20,17 @@ public class EndGameUI : MonoBehaviour
 
     private void RestartGame()
     {
-        GameManager.Instance.RestartGame();
+        StartCoroutine(RestartGameRoutine());
     }
 
     private void QuitGame()
     {
         Application.Quit();
+    }
+
+    private IEnumerator RestartGameRoutine()
+    {
+        yield return new WaitForSeconds(_restartTime);
+        GameManager.Instance.RestartGame();
     }
 }

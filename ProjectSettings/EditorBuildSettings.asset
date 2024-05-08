@@ -24,9 +24,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Level Moving 1.unity
     guid: 7a31104b019be8e4fb57c5cb115eb11d
   - enabled: 1
-    path: Assets/Scenes/Upgrade 3.unity
-    guid: 996173600bf7dbe408cdd0bb22284948
-  - enabled: 1
     path: Assets/Scenes/End.unity
     guid: 84b7bdcf0d5ecd645af223330ecd762e
   m_configObjects:
