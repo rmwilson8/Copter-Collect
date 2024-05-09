@@ -14,35 +14,22 @@ public class StartMenuUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _factText;
     [SerializeField] private float _startTime = 2f;
 
-    private void OnEnable()
-    {
-        _startButton.onClick.AddListener(StartGame);
-        _endlessButton.onClick.AddListener(StartEndlessGame);
-        _quitButton.onClick.AddListener(QuitGame);
-    }
-
-    private void OnDisable()
-    {
-        _startButton.onClick.RemoveListener(StartGame);
-        _quitButton.onClick.RemoveListener(QuitGame);
-    }
-
     private void Start()
     {
         _factText.text = GameConstants.START_MENU_FACT;
     }
 
-    private void StartGame()
+    public void StartGame()
     {
         StartCoroutine(StartGameRoutine());
     }
 
-    private void StartEndlessGame()
+    public void StartEndlessGame()
     {
         StartCoroutine(StartEndlessGameRoutine());
     }
 
-    private void QuitGame()
+    public void QuitGame()
     {
         Application.Quit();
     }
